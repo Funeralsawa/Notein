@@ -51,6 +51,7 @@ page {
 .card-list {
   flex: 1;
   padding: 16rpx;
+  box-sizing: border-box;
 }
 
 .masonry {
