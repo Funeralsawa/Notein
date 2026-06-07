@@ -1,10 +1,32 @@
 {
   "pages": [
-    "pages/index/index"
+    "pages/index/index",
+    "pages/todo/todo",
+    "pages/edit/edit"
   ],
   "window": {
     "navigationBarTextStyle": "black",
     "navigationStyle": "custom"
+  },
+  "tabBar": {
+    "color": "#999",
+    "selectedColor": "#4a90d9",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "便签",
+        "iconPath": "images/tab-note.png",
+        "selectedIconPath": "images/tab-note-active.png"
+      },
+      {
+        "pagePath": "pages/todo/todo",
+        "text": "TODO",
+        "iconPath": "images/tab-todo.png",
+        "selectedIconPath": "images/tab-todo-active.png"
+      }
+    ]
   },
   "style": "v2",
   "renderer": "skyline",

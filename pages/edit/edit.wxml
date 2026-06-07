@@ -1,0 +1,45 @@
+<navigation-bar title="编辑便签" back="{{true}}" color="black" background="{{bgColor}}"></navigation-bar>
+
+<view class="edit-scroll" style="background-color: {{bgColor}};">
+  <input
+    class="title-input"
+    placeholder="输入标题..."
+    value="{{title}}"
+    bindinput="onTitleInput"
+    adjust-position="{{false}}"
+  />
+  <view class="cat-select">
+    <view
+      wx:for="{{categories}}"
+      wx:key="*this"
+      class="cat-option {{category === item ? 'cat-option-active' : ''}}"
+      bindtap="onCategoryTap"
+      hover-class="cat-hover"
+      data-category="{{item}}"
+    >{{item}}</view>
+  </view>
+  <textarea
+    class="content-textarea"
+    placeholder="输入内容..."
+    value="{{content}}"
+    bindinput="onContentInput"
+    auto-height
+    maxlength="-1"
+    adjust-position="{{false}}"
+  />
+  <view class="bottom-spacer"></view>
+</view>
+
+<view class="color-bar">
+  <view
+    wx:for="{{colors}}"
+    wx:key="*this"
+    class="color-circle {{bgColor === item ? 'active' : ''}}"
+    style="background-color: {{item}};"
+    bindtap="onColorTap"
+    hover-class="circle-hover"
+    data-color="{{item}}"
+  >
+    <text class="color-check" wx:if="{{bgColor === item}}">✓</text>
+  </view>
+</view>

@@ -1,7 +1,63 @@
-<!--index.wxml-->
-<navigation-bar title="Weixin" back="{{false}}" color="black" background="#FFF"></navigation-bar>
-<scroll-view class="scrollarea" scroll-y type="list">
-  <view class="container">
-    Weixin
+<navigation-bar title="便签" back="{{false}}" color="black" background="#FFF"></navigation-bar>
+
+<view class="search-bar">
+  <input class="search-input" placeholder="搜索便签..." value="{{keyword}}" bindinput="onSearchInput" />
+</view>
+
+<view class="category-bar">
+  <view
+    wx:for="{{categories}}"
+    wx:key="*this"
+    class="category-tag {{activeCategory === item ? 'category-active' : ''}}"
+    bindtap="onCategoryTap"
+    data-category="{{item}}"
+    hover-class="tag-hover"
+  >{{item}}</view>
+</view>
+
+<scroll-view class="card-list" scroll-y enhanced show-scrollbar="{{false}}">
+  <view class="masonry" wx:if="{{leftColumn.length > 0 || rightColumn.length > 0}}">
+    <view class="masonry-column">
+      <view
+        wx:for="{{leftColumn}}"
+        wx:key="id"
+        class="note-card"
+        style="background-color: {{item.bgColor}};"
+        bindtap="onCardTap"
+        bindlongpress="onCardLongPress"
+        hover-class="card-hover"
+        data-id="{{item.id}}"
+      >
+        <view class="card-tag">{{item.category || '其他'}}</view>
+        <view class="card-title">{{item.title || '无标题'}}</view>
+        <view class="card-content">{{item.content}}</view>
+        <view class="card-time">{{item.updateTimeStr}}</view>
+      </view>
+    </view>
+    <view class="masonry-column">
+      <view
+        wx:for="{{rightColumn}}"
+        wx:key="id"
+        class="note-card"
+        style="background-color: {{item.bgColor}};"
+        bindtap="onCardTap"
+        bindlongpress="onCardLongPress"
+        hover-class="card-hover"
+        data-id="{{item.id}}"
+      >
+        <view class="card-tag">{{item.category || '其他'}}</view>
+        <view class="card-title">{{item.title || '无标题'}}</view>
+        <view class="card-content">{{item.content}}</view>
+        <view class="card-time">{{item.updateTimeStr}}</view>
+      </view>
+    </view>
   </view>
+  <view class="empty" wx:else>
+    <text class="empty-text">暂无便签，点击右下角 + 创建</text>
+  </view>
+  <view class="list-bottom-spacer"></view>
 </scroll-view>
+
+<view class="fab" bindtap="onAddNote" hover-class="fab-hover">
+  <text class="fab-text">+</text>
+</view>

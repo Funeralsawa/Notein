@@ -1,0 +1,49 @@
+<navigation-bar title="TODO" back="{{false}}" color="black" background="#FFF"></navigation-bar>
+
+<view class="add-bar">
+  <input
+    class="add-input"
+    placeholder="添加待办事项..."
+    value="{{inputValue}}"
+    bindinput="onInputChange"
+    bindconfirm="onAddTodo"
+    confirm-type="done"
+  />
+  <view class="add-btn" bindtap="onAddTodo" hover-class="add-btn-hover">
+    <text class="add-btn-text">+</text>
+  </view>
+</view>
+
+<scroll-view class="timeline-scroll" scroll-y enhanced show-scrollbar="{{false}}">
+  <view class="empty-timeline" wx:if="{{groups.length === 0}}">
+    <text class="empty-text">暂无待办，在上方添加</text>
+  </view>
+
+  <view class="timeline" wx:else>
+    <block wx:for="{{groups}}" wx:key="label">
+      <view class="timeline-group">
+        <view class="timeline-label">{{item.label}}</view>
+        <view class="timeline-items">
+          <block wx:for="{{item.items}}" wx:key="id" wx:for-item="todo" wx:for-index="todoIdx">
+            <view class="timeline-item {{todo.isLast ? 'is-last' : ''}}">
+              <view class="timeline-dot {{todo.completed ? 'dot-completed' : ''}}">
+                <view class="dot-inner {{todo.completed ? 'dot-inner-completed' : ''}}"></view>
+              </view>
+              <view
+                class="timeline-card {{todo.completed ? 'card-completed' : ''}}"
+                bindtap="onToggleTodo"
+                bindlongpress="onDeleteTodo"
+                hover-class="card-hover"
+                data-id="{{todo.id}}"
+              >
+                <view class="todo-content {{todo.completed ? 'content-done' : ''}}">{{todo.content}}</view>
+                <view class="todo-time">{{todo.timeStr}}</view>
+              </view>
+            </view>
+          </block>
+        </view>
+      </view>
+    </block>
+    <view class="timeline-end"></view>
+  </view>
+</scroll-view>
