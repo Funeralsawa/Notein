@@ -9,7 +9,7 @@ Page({
     title: '',
     content: '',
     bgColor: '#c9d9c2',
-    category: '其他',
+    category: '个人',
     colors: COLORS,
     categories: CATEGORIES
   },

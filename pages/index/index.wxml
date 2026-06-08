@@ -4,7 +4,7 @@
   <input class="search-input" placeholder="搜索便签..." value="{{keyword}}" bindinput="onSearchInput" />
 </view>
 
-<view class="category-bar">
+<scroll-view class="category-bar" scroll-x enhanced show-scrollbar="{{false}}">
   <view
     wx:for="{{categories}}"
     wx:key="*this"
@@ -13,7 +13,7 @@
     data-category="{{item}}"
     hover-class="tag-hover"
   >{{item}}</view>
-</view>
+</scroll-view>
 
 <scroll-view class="card-list" scroll-y enhanced show-scrollbar="{{false}}">
   <view class="masonry" wx:if="{{leftColumn.length > 0 || rightColumn.length > 0}}">
