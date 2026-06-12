@@ -34,4 +34,36 @@ function getById(id) {
   return getAll().find(function (n) { return n.id === id; }) || null;
 }
 
-module.exports = { getAll: getAll, save: save, remove: remove, getById: getById };
+function merge(serverNotes) {
+  var local = getAll();
+  var map = {};
+  local.forEach(function (n) { map[n.id] = n; });
+
+  var CAT_MAP = { 0: '个人', 1: '工作', 2: '其他' };
+
+  serverNotes.forEach(function (sn) {
+    var localNote = map[sn.id];
+    if (!localNote || sn.updateTime > localNote.updateTime) {
+      map[sn.id] = {
+        id: sn.id,
+        title: sn.title || '',
+        content: sn.content || '',
+        bgColor: sn.bgColor || '#c9d9c2',
+        category: CAT_MAP[sn.category] !== undefined ? CAT_MAP[sn.category] : '其他',
+        createTime: sn.createTime,
+        updateTime: sn.updateTime
+      };
+    }
+  });
+
+  var merged = [];
+  for (var key in map) {
+    if (map.hasOwnProperty(key)) {
+      merged.push(map[key]);
+    }
+  }
+  merged.sort(function (a, b) { return b.updateTime - a.updateTime; });
+  wx.setStorageSync(STORAGE_KEY, merged);
+}
+
+module.exports = { getAll: getAll, save: save, remove: remove, getById: getById, merge: merge };

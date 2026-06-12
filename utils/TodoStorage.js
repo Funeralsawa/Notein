@@ -50,4 +50,33 @@ function getById(id) {
   return getAll().find(function (t) { return t.id === id; }) || null;
 }
 
-module.exports = { getAll: getAll, add: add, remove: remove, toggleComplete: toggleComplete, getById: getById };
+function merge(serverTodos) {
+  var local = getAll();
+  var map = {};
+  local.forEach(function (t) { map[t.id] = t; });
+
+  serverTodos.forEach(function (st) {
+    var localTodo = map[st.id];
+    if (!localTodo || st.updateTime > localTodo.updateTime) {
+      map[st.id] = {
+        id: st.id,
+        content: st.content || '',
+        completed: !!st.isCompleted,
+        createTime: st.createTime,
+        updateTime: st.updateTime,
+        completedTime: st.isCompleted ? st.updateTime : null
+      };
+    }
+  });
+
+  var merged = [];
+  for (var key in map) {
+    if (map.hasOwnProperty(key)) {
+      merged.push(map[key]);
+    }
+  }
+  merged.sort(function (a, b) { return b.updateTime - a.updateTime; });
+  wx.setStorageSync(STORAGE_KEY, merged);
+}
+
+module.exports = { getAll: getAll, add: add, remove: remove, toggleComplete: toggleComplete, getById: getById, merge: merge };

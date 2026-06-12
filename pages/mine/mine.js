@@ -9,7 +9,8 @@ Page({
   data: {
     isLoggedIn: false,
     alias: '',
-    syncing: false
+    syncing: false,
+    pulling: false
   },
 
   onShow: function () {
@@ -54,7 +55,7 @@ Page({
       });
 
       self.setData({ syncing: true });
-      wx.showLoading({ title: '同步中...', mask: true });
+      wx.showLoading({ title: '上传中...', mask: true });
 
       wx.request({
         url: API_BASE + '/sync',
@@ -72,15 +73,66 @@ Page({
           self.setData({ syncing: false });
 
           if (res.statusCode === 200) {
-            wx.showToast({ title: '同步成功', icon: 'success' });
+            wx.showToast({ title: '上传成功', icon: 'success' });
           } else {
-            var msg = (res.data && res.data.msg) ? res.data.msg : '同步失败';
+            var msg = (res.data && res.data.msg) ? res.data.msg : '上传失败';
             wx.showToast({ title: msg, icon: 'none' });
           }
         },
         fail: function () {
           wx.hideLoading();
           self.setData({ syncing: false });
+          wx.showToast({ title: '网络请求失败', icon: 'none' });
+        }
+      });
+    });
+  },
+
+  onTapPull: function () {
+    var self = this;
+
+    Auth.ensureFreshToken(function (err, token) {
+      if (err) {
+        wx.showToast({ title: 'token 已过期，请重新登录', icon: 'none' });
+        return;
+      }
+
+      self.setData({ pulling: true });
+      wx.showLoading({ title: '拉取中...', mask: true });
+
+      wx.request({
+        url: API_BASE + '/sync',
+        method: 'GET',
+        header: {
+          'Authorization': 'Bearer ' + token
+        },
+        success: function (res) {
+          wx.hideLoading();
+          self.setData({ pulling: false });
+
+          var body = res.data;
+          if (typeof body === 'string') {
+            try { body = JSON.parse(body); } catch (e) { body = {}; }
+          }
+
+          var payload = body.data || body;
+          if (res.statusCode !== 200 || !payload) {
+            var msg = (body && body.msg) || '拉取失败';
+            wx.showToast({ title: msg, icon: 'none' });
+            return;
+          }
+
+          var serverNotes = payload.notes || [];
+          var serverTodos = payload.todo || [];
+
+          NoteStorage.merge(serverNotes);
+          TodoStorage.merge(serverTodos);
+
+          wx.showToast({ title: '拉取成功', icon: 'success' });
+        },
+        fail: function () {
+          wx.hideLoading();
+          self.setData({ pulling: false });
           wx.showToast({ title: '网络请求失败', icon: 'none' });
         }
       });

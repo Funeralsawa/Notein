@@ -10,7 +10,12 @@
     <view class="menu-list">
       <view class="menu-item" bindtap="onTapSync" hover-class="menu-hover">
         <text class="menu-label">同步到云端</text>
-        <text class="menu-value">{{syncing ? '同步中...' : ''}}</text>
+        <text class="menu-value">{{syncing ? '上传中...' : ''}}</text>
+        <text class="menu-arrow">›</text>
+      </view>
+      <view class="menu-item" bindtap="onTapPull" hover-class="menu-hover">
+        <text class="menu-label">从云端同步</text>
+        <text class="menu-value">{{pulling ? '拉取中...' : ''}}</text>
         <text class="menu-arrow">›</text>
       </view>
       <view class="menu-item" bindtap="onTapSettings" hover-class="menu-hover">
