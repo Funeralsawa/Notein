@@ -22,13 +22,9 @@
   <view class="section">
     <view class="section-title">关于</view>
     <view class="card">
-      <view class="cell">
-        <text class="cell-label">版本</text>
-        <text class="cell-value">1.0.0</text>
-      </view>
-      <view class="cell">
-        <text class="cell-label">Notein</text>
-        <text class="cell-value">极简便签</text>
+      <view class="cell cell-tap" bindtap="onTapAbout" hover-class="cell-hover">
+        <text class="cell-label">关于 Notein</text>
+        <text class="cell-arrow">›</text>
       </view>
     </view>
   </view>

@@ -6,7 +6,8 @@
     "pages/edit/edit",
     "pages/login/login",
     "pages/register/register",
-    "pages/settings/settings"
+    "pages/settings/settings",
+    "pages/about/about"
   ],
   "window": {
     "navigationBarTextStyle": "black",

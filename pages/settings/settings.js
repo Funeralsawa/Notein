@@ -29,5 +29,9 @@ Page({
         }
       }
     });
+  },
+
+  onTapAbout: function () {
+    wx.navigateTo({ url: '/pages/about/about' });
   }
 });

@@ -67,3 +67,8 @@ page {
   text-align: center;
   width: 100%;
 }
+
+.cell-arrow {
+  font-size: 32rpx;
+  color: #ccc;
+}

@@ -1,0 +1,24 @@
+<navigation-bar title="关于" back="{{true}}" color="black" background="#FFF"></navigation-bar>
+
+<view class="about-container">
+  <view class="logo-area">
+    <view class="logo">N</view>
+    <text class="app-name">Notein</text>
+    <text class="app-desc">极简便签，记录生活</text>
+  </view>
+
+  <view class="info-card">
+    <view class="info-row">
+      <text class="info-label">版本</text>
+      <text class="info-value">v2.0.1</text>
+    </view>
+    <view class="info-row">
+      <text class="info-label">作者</text>
+      <text class="info-value">Aysel</text>
+    </view>
+    <view class="info-row">
+      <text class="info-label">开源协议</text>
+      <text class="info-value">MIT</text>
+    </view>
+  </view>
+</view>
