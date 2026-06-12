@@ -1,0 +1,37 @@
+<navigation-bar title="登录" back="{{true}}" color="black" background="#FFF"></navigation-bar>
+
+<view class="auth-container">
+  <view class="auth-card">
+    <view class="auth-title">欢迎回来</view>
+
+    <view class="auth-field">
+      <text class="auth-label">邮箱</text>
+      <input
+        class="auth-input"
+        type="text"
+        placeholder="请输入邮箱"
+        value="{{email}}"
+        bindinput="onEmailInput"
+      />
+    </view>
+
+    <view class="auth-field">
+      <text class="auth-label">密码</text>
+      <input
+        class="auth-input"
+        type="password"
+        placeholder="请输入密码"
+        value="{{password}}"
+        bindinput="onPasswordInput"
+      />
+    </view>
+
+    <view class="auth-btn {{loading ? 'auth-btn-disabled' : ''}}" bindtap="onLogin" hover-class="auth-btn-hover">
+      <text class="auth-btn-text">{{loading ? '登录中...' : '登录'}}</text>
+    </view>
+
+    <view class="auth-switch" bindtap="onGoRegister" hover-class="link-hover">
+      <text class="auth-switch-text">没有账号？去注册</text>
+    </view>
+  </view>
+</view>

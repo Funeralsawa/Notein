@@ -1,3 +1,5 @@
+var uuid = require('./uuid');
+
 var STORAGE_KEY = 'notes_list';
 
 function getAll() {
@@ -14,7 +16,7 @@ function save(note) {
   if (idx >= 0) {
     notes[idx] = Object.assign({}, notes[idx], note, { updateTime: Date.now() });
   } else {
-    note.id = note.id || Date.now().toString();
+    note.id = note.id || uuid();
     note.createTime = Date.now();
     note.updateTime = Date.now();
     notes.unshift(note);

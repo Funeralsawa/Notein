@@ -42,4 +42,8 @@
   >
     <text class="color-check" wx:if="{{bgColor === item}}">✓</text>
   </view>
+  <view class="color-bar-divider"></view>
+  <view class="polish-btn {{polishing ? 'polish-loading' : ''}}" bindtap="onPolish" hover-class="polish-hover">
+    <text class="polish-text">{{polishing ? '中' : '✨'}}</text>
+  </view>
 </view>

@@ -1,0 +1,48 @@
+<navigation-bar title="注册" back="{{true}}" color="black" background="#FFF"></navigation-bar>
+
+<view class="auth-container">
+  <view class="auth-card">
+    <view class="auth-title">创建账号</view>
+
+    <view class="auth-field">
+      <text class="auth-label">邮箱</text>
+      <input
+        class="auth-input"
+        type="text"
+        placeholder="请输入邮箱"
+        value="{{email}}"
+        bindinput="onEmailInput"
+      />
+    </view>
+
+    <view class="auth-field">
+      <text class="auth-label">密码</text>
+      <input
+        class="auth-input"
+        type="password"
+        placeholder="请输入密码"
+        value="{{password}}"
+        bindinput="onPasswordInput"
+      />
+    </view>
+
+    <view class="auth-field">
+      <text class="auth-label">确认密码</text>
+      <input
+        class="auth-input"
+        type="password"
+        placeholder="请再次输入密码"
+        value="{{confirmPassword}}"
+        bindinput="onConfirmInput"
+      />
+    </view>
+
+    <view class="auth-btn {{loading ? 'auth-btn-disabled' : ''}}" bindtap="onRegister" hover-class="auth-btn-hover">
+      <text class="auth-btn-text">{{loading ? '注册中...' : '注册'}}</text>
+    </view>
+
+    <view class="auth-switch" bindtap="onGoLogin" hover-class="link-hover">
+      <text class="auth-switch-text">已有账号？去登录</text>
+    </view>
+  </view>
+</view>

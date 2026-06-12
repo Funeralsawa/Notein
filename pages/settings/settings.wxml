@@ -1,0 +1,35 @@
+<navigation-bar title="设置" back="{{true}}" color="black" background="#FFF"></navigation-bar>
+
+<view class="settings-container">
+  <view class="section">
+    <view class="section-title">账号</view>
+    <view wx:if="{{isLoggedIn}}" class="card">
+      <view class="cell">
+        <text class="cell-label">当前账号</text>
+        <text class="cell-value">{{alias}}</text>
+      </view>
+      <view class="cell cell-tap" bindtap="onLogout" hover-class="cell-hover">
+        <text class="cell-label-logout">退出登录</text>
+      </view>
+    </view>
+    <view wx:else class="card">
+      <view class="cell cell-tap" bindtap="onTapLogin" hover-class="cell-hover">
+        <text class="cell-label-link">去登录</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="section">
+    <view class="section-title">关于</view>
+    <view class="card">
+      <view class="cell">
+        <text class="cell-label">版本</text>
+        <text class="cell-value">1.0.0</text>
+      </view>
+      <view class="cell">
+        <text class="cell-label">Notein</text>
+        <text class="cell-value">极简便签</text>
+      </view>
+    </view>
+  </view>
+</view>

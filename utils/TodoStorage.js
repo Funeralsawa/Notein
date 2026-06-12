@@ -1,3 +1,5 @@
+var uuid = require('./uuid');
+
 var STORAGE_KEY = 'todos_list';
 
 function getAll() {
@@ -11,11 +13,13 @@ function getAll() {
 function add(content) {
   if (!content || !content.trim()) return null;
   var todos = getAll();
+  var now = Date.now();
   var todo = {
-    id: Date.now().toString(),
+    id: uuid(),
     content: content.trim(),
     completed: false,
-    createTime: Date.now(),
+    createTime: now,
+    updateTime: now,
     completedTime: null
   };
   todos.unshift(todo);
@@ -32,8 +36,10 @@ function toggleComplete(id) {
   var todos = getAll();
   var idx = todos.findIndex(function (t) { return t.id === id; });
   if (idx >= 0) {
+    var now = Date.now();
     todos[idx].completed = !todos[idx].completed;
-    todos[idx].completedTime = todos[idx].completed ? Date.now() : null;
+    todos[idx].updateTime = now;
+    todos[idx].completedTime = todos[idx].completed ? now : null;
     wx.setStorageSync(STORAGE_KEY, todos);
     return todos[idx];
   }
